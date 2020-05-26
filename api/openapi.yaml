@@ -1,11 +1,11 @@
 openapi: 3.0.1
 info:
   contact:
-    email: documentation@perf-act.com
-  title: perf::act Documentation API
+    email: contact@docstore.dev
+  title: docstore API
   version: 1.0.0
 servers:
-- url: https://documentation.perf-act.de/api/
+- url: https://api.docstore.dev
 paths:
   /document:
     get:

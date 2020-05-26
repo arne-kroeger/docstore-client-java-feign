@@ -21,12 +21,12 @@ import feign.jackson.JacksonEncoder;
 import feign.slf4j.Slf4jLogger;
 import dev.docstore.documentation.auth.*;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-05-26T07:30:35.849+02:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-05-26T07:34:15.178+02:00[Europe/Berlin]")
 public class ApiClient {
   public interface Api {}
 
   protected ObjectMapper objectMapper;
-  private String basePath = "https://documentation.perf-act.de/api";
+  private String basePath = "https://api.docstore.dev";
   private Map<String, RequestInterceptor> apiAuthorizations;
   private Feign.Builder feignBuilder;
 
