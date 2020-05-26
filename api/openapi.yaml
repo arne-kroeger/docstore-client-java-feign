@@ -1,0 +1,329 @@
+openapi: 3.0.1
+info:
+  contact:
+    email: documentation@perf-act.com
+  title: perf::act Documentation API
+  version: 1.0.0
+servers:
+- url: https://documentation.perf-act.de/api/
+paths:
+  /document:
+    get:
+      operationId: getLatestDocuments
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Documents'
+          description: ok
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+          description: bad request, see response data for details
+        "403":
+          content: {}
+          description: operation not allowed for the user
+      summary: get latest updated documents
+      tags:
+      - document
+      x-accepts: application/json
+    post:
+      operationId: addNewDocument
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Document'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+          description: ok
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+          description: bad request, see response data for details
+        "403":
+          content: {}
+          description: operation not allowed for the user
+      summary: adds a new document
+      tags:
+      - document
+      x-contentType: application/json
+      x-accepts: application/json
+  /document/search:
+    post:
+      operationId: searchDocuments
+      requestBody:
+        content:
+          text/plain:
+            schema:
+              type: string
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Documents'
+          description: ok
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+          description: bad request, see response data for details
+        "403":
+          content: {}
+          description: operation not allowed for the user
+      summary: search for documents
+      tags:
+      - document
+      x-contentType: text/plain
+      x-accepts: application/json
+  /document/{uuid}/{env}:
+    get:
+      operationId: getDocument
+      parameters:
+      - explode: false
+        in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: env
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+          description: ok
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+          description: bad request, see response data for details
+        "403":
+          content: {}
+          description: operation not allowed for the user
+      summary: get latest updated documents
+      tags:
+      - document
+      x-accepts: application/json
+  /document/template/{templateUuid}:
+    post:
+      operationId: addNewDocumentForTemplate
+      parameters:
+      - explode: false
+        in: path
+        name: templateUuid
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TemplateData'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+          description: ok
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+          description: bad request, see response data for details
+        "403":
+          content: {}
+          description: operation not allowed for the user
+      summary: adds a new document by template
+      tags:
+      - document
+      x-contentType: application/json
+      x-accepts: application/json
+components:
+  responses:
+    BadRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BadRequest'
+      description: bad request, see response data for details
+    NotAllowed:
+      content: {}
+      description: operation not allowed for the user
+  schemas:
+    Documents:
+      items:
+        $ref: '#/components/schemas/Document'
+      type: array
+    Document:
+      example:
+        latestChange: 2000-01-23T04:56:07.000+00:00
+        environment:
+          name: name
+        id: 0
+        title: title
+        otherEnvironments:
+        - name: name
+        - name: name
+        uuid: uuid
+        content: content
+        space:
+          name: name
+        latestUpdate: 2000-01-23T04:56:07.000+00:00
+        tags:
+        - tags
+        - tags
+      properties:
+        id:
+          format: int64
+          type: integer
+        uuid:
+          type: string
+        title:
+          type: string
+        content:
+          type: string
+        latestChange:
+          format: date-time
+          type: string
+        latestUpdate:
+          format: date-time
+          type: string
+        space:
+          $ref: '#/components/schemas/Space'
+        environment:
+          $ref: '#/components/schemas/Environment'
+        otherEnvironments:
+          items:
+            $ref: '#/components/schemas/Environment'
+          type: array
+        tags:
+          items:
+            type: string
+          type: array
+      required:
+      - content
+      - environment
+      - latestUpdate
+      - otherEnvironments
+      - space
+      - tags
+      - title
+      - uuid
+      type: object
+    Tags:
+      items:
+        type: string
+      type: array
+    Environment:
+      example:
+        name: name
+      properties:
+        name:
+          type: string
+      required:
+      - name
+      type: object
+    Space:
+      example:
+        name: name
+      properties:
+        name:
+          type: string
+      required:
+      - name
+      type: object
+    TemplateData:
+      example:
+        environment:
+          name: name
+        additionalTags:
+        - additionalTags
+        - additionalTags
+        variables:
+        - name: name
+          value: '{}'
+        - name: name
+          value: '{}'
+        uuid: uuid
+        space:
+          name: name
+      properties:
+        uuid:
+          type: string
+        space:
+          $ref: '#/components/schemas/Space'
+        environment:
+          $ref: '#/components/schemas/Environment'
+        additionalTags:
+          items:
+            type: string
+          type: array
+        variables:
+          items:
+            $ref: '#/components/schemas/TemplateVariable'
+          type: array
+      required:
+      - space
+      - uuid
+      - variables
+      type: object
+    TemplateVariables:
+      items:
+        $ref: '#/components/schemas/TemplateVariable'
+      type: array
+    TemplateVariable:
+      example:
+        name: name
+        value: '{}'
+      properties:
+        name:
+          type: string
+        value:
+          type: object
+      type: object
+    BadRequest:
+      description: cloned from product list api
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/ErrorItem'
+          type: array
+      type: object
+    ErrorItem:
+      description: definition of error item
+      properties:
+        field:
+          type: string
+        code:
+          type: string
+        message:
+          type: string
+      type: object
+
