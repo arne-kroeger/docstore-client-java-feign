@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonPropertyOrder({
   BadRequest.JSON_PROPERTY_ITEMS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-05-26T07:23:34.176+02:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-05-26T07:30:35.849+02:00[Europe/Berlin]")
 public class BadRequest {
   public static final String JSON_PROPERTY_ITEMS = "items";
   private List<ErrorItem> items = null;

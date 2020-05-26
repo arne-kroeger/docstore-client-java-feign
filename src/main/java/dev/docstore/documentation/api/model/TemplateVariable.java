@@ -30,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   TemplateVariable.JSON_PROPERTY_NAME,
   TemplateVariable.JSON_PROPERTY_VALUE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-05-26T07:23:34.176+02:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-05-26T07:30:35.849+02:00[Europe/Berlin]")
 public class TemplateVariable {
   public static final String JSON_PROPERTY_NAME = "name";
   private String name;

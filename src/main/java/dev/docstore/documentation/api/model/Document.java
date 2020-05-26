@@ -43,7 +43,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   Document.JSON_PROPERTY_OTHER_ENVIRONMENTS,
   Document.JSON_PROPERTY_TAGS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-05-26T07:23:34.176+02:00[Europe/Berlin]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-05-26T07:30:35.849+02:00[Europe/Berlin]")
 public class Document {
   public static final String JSON_PROPERTY_ID = "id";
   private Long id;
